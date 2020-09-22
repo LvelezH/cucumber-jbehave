@@ -1,13 +1,16 @@
+package jbehave;
+
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.io.CodeLocations;
 import org.jbehave.core.io.LoadFromClasspath;
+import org.jbehave.core.io.StoryFinder;
 import org.jbehave.core.junit.JUnitStories;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.InjectableStepsFactory;
 import org.jbehave.core.steps.InstanceStepsFactory;
 import steps.BankSteps;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.jbehave.core.io.CodeLocations.codeLocationFromClass;
@@ -31,7 +34,7 @@ public class BankTestsRunner extends JUnitStories {
 
     @Override
     protected List<String> storyPaths() {
-        return Arrays.asList("stories/account_creation.story", "stories/perform_deposit.story",
-                             "stories/bank_creation.story", "stories/add_account_to_bank.story");
+        return  new StoryFinder().findPaths(CodeLocations.codeLocationFromClass(this.getClass()),
+                "**/*.story", null);
     }
 }
